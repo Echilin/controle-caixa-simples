@@ -1,7 +1,12 @@
-// Tudo dentro do onload para garantir que o Firebase já está carregado
+// Espera a página carregar para garantir que o Firebase db já existe
 window.onload = function() {
-  // db já foi definido no index.html
+
+  // Referência à coleção "vendas" no Firestore
   const vendasRef = db.collection("vendas");
+
+  // Botão adicionar produto
+  const btnAdicionar = document.getElementById("btnAdicionar");
+  btnAdicionar.addEventListener("click", adicionarProduto);
 
   // Função para adicionar produto
   function adicionarProduto() {
@@ -97,10 +102,9 @@ window.onload = function() {
     });
   }
 
-  // Expõe as funções globalmente para os botões
-  window.adicionarProduto = adicionarProduto;
+  // Expõe a função globalmente para os botões HTML
   window.removerProduto = removerProduto;
 
-  // Atualiza tabela ao carregar a página
+  // Atualiza tabela ao carregar
   atualizarTabela();
 };

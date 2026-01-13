@@ -5,18 +5,20 @@
   <title>💎 Contador de Lucro - Clarinho que Brilha 💎</title>
   <link rel="stylesheet" href="style.css">
 
-  <!-- Firebase SDKs -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+  <!-- Firebase v8 (modo simples e estável) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
+
 <body>
   <div class="container">
 
-    <!-- LADO ESQUERDO: Logo e Resumo -->
+    <!-- LADO ESQUERDO -->
     <div class="sidebar">
       <div class="logo">
         <img src="logo.png" alt="Logo da Loja" id="logoLoja">
       </div>
+
       <div class="resumo">
         <p>🛒 VALOR GASTO: R$ <span id="valorGasto">0.00</span></p>
         <p>💵 VENDAS: R$ <span id="vendas">0.00</span></p>
@@ -25,11 +27,11 @@
       </div>
     </div>
 
-    <!-- LADO DIREITO: Tabela + Inputs -->
+    <!-- LADO DIREITO -->
     <div class="main">
       <h1>💖 CONTADOR DE LUCRO (CLARINHO QUE BRILHA) 💖</h1>
 
-      <!-- Cabeçalho estilo Excel -->
+      <!-- Cabeçalho rosa estilo Excel -->
       <div class="tabela-cabecalho">
         <div class="coluna">ITEM</div>
         <div class="coluna">💰 CUSTO</div>
@@ -41,10 +43,10 @@
         <div class="coluna">⚙️ AÇÕES</div>
       </div>
 
-      <!-- Tabela de dados -->
+      <!-- Tabela -->
       <table id="tabela">
         <tbody>
-          <!-- Produtos aparecem aqui via Firebase -->
+          <!-- Dados do Firebase -->
         </tbody>
       </table>
 
@@ -55,15 +57,16 @@
         <input type="number" id="preco" placeholder="Preço de venda">
         <input type="number" id="qtdComprada" placeholder="Qtd comprada">
         <input type="number" id="qtdVendida" placeholder="Qtd vendida">
-       <button id="btnAdicionar">💾 Adicionar Produto</button>
 
+        <!-- BOTÃO SIMPLES (FUNCIONA) -->
+        <button onclick="adicionarProduto()">💾 Adicionar Produto</button>
       </div>
     </div>
   </div>
 
-  <!-- Configuração Firebase -->
+  <!-- CONFIGURAÇÃO FIREBASE -->
   <script>
-    const firebaseConfig = {
+    var firebaseConfig = {
       apiKey: "AIzaSyBJ4sECAUppGXWX-zeLj1fwiparbCjNQIY",
       authDomain: "contador-de-lucro.firebaseapp.com",
       projectId: "contador-de-lucro",
@@ -72,10 +75,11 @@
       appId: "1:564577808202:web:643353f1a2494692fe1bb3"
     };
 
-    const app = firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
   </script>
 
+  <!-- SEU JS -->
   <script src="script.js"></script>
 </body>
 </html>

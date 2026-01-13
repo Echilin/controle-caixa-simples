@@ -16,6 +16,7 @@ function adicionarProduto() {
   const lucroUnit = preco - custo;
   const lucroTotal = lucroUnit * qtdVendida;
 
+  // Salva no Firebase
   vendasRef.add({
     nome,
     custo,
@@ -69,7 +70,7 @@ function atualizarTabela() {
         <td>${p.qtdVendida}</td>
         <td>R$ ${p.lucroUnit.toFixed(2)}</td>
         <td>R$ ${p.lucroTotal.toFixed(2)}</td>
-        <td><button onclick="removerProduto('${doc.id}')">❌ Remover</button></td>
+        <td><button onclick="removerProduto('${doc.id}')" class="delete">❌ Remover</button></td>
       `;
       tbody.appendChild(tr);
     });
@@ -90,5 +91,5 @@ function removerProduto(id) {
   });
 }
 
-// Atualizar tabela ao carregar página
+// Atualiza tabela ao carregar página
 window.onload = atualizarTabela;

@@ -1,109 +1,44 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Arial, sans-serif;
   padding: 20px;
-  background: #fff0f5;
-  color: #333;
+  text-align: center;
 }
 
-h1 {
-  color: #e91e63;
-  text-align: center;
-  margin-bottom: 20px;
+.logo img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto 20px auto;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  background-color: #fff;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+  border: 1px solid #ccc;
+  padding: 8px;
 }
 
 th {
-  background-color: #ffb6c1;
-  color: #333;
-}
-
-td {
-  background-color: #fffaf0;
-}
-
-td:nth-child(6), td:nth-child(7) {
-  font-weight: bold;
-}
-
-td button {
-  cursor: pointer;
-  padding: 5px 8px;
-  margin: 2px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-td button:hover {
-  opacity: 0.8;
-}
-
-td button.edit {
-  background-color: #4caf50;
-  color: white;
-}
-
-td button.delete {
-  background-color: #f44336;
-  color: white;
-}
-
-.resumo p {
-  font-size: 18px;
-  margin: 5px 0;
+  background-color: #ffe6f0;
 }
 
 .inputs input {
   padding: 8px;
   margin: 5px;
-  width: 140px;
 }
 
 .inputs button {
   padding: 8px 12px;
-  background-color: #ff69b4;
-  color: white;
-  border: none;
-  border-radius: 5px;
+  margin: 5px;
   cursor: pointer;
 }
 
-.inputs button:hover {
-  opacity: 0.9;
-}
-.logo {
-  text-align: center; /* centraliza a logo */
-  margin-bottom: 20px;
-}
-
-.logo {
-  text-align: center;       /* centraliza a logo */
-  margin-bottom: 20px;      /* espaço abaixo da logo */
-}
-
-.logo img {
-  width: 180px;             /* tamanho maior */
-  height: 180px;            /* mantém proporção quadrada */
-  border-radius: 50%;       /* deixa redonda */
-  object-fit: cover;        /* ajusta a imagem dentro do círculo */
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* sombra mais elegante */
-  border: 3px solid #ff69b4; /* borda colorida opcional */
-  transition: transform 0.3s; /* efeito hover suave */
-}
-
-.logo img:hover {
-  transform: scale(1.05);   /* dá um leve “zoom” quando passa o mouse */
+.resumo p {
+  font-weight: bold;
+  margin: 5px 0;
 }

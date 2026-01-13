@@ -1,5 +1,6 @@
-let produtos = [];
+const vendasRef = db.collection("vendas");
 
+// Adicionar produto
 function adicionarProduto() {
   const nome = document.getElementById("nome").value;
   const custo = parseFloat(document.getElementById("custo").value);
@@ -12,92 +13,24 @@ function adicionarProduto() {
     return;
   }
 
-  const lucroUnitario = preco - custo;
-  const lucroTotal = lucroUnitario * qtdVendida;
+  const lucroUnit = preco - custo;
+  const lucroTotal = lucroUnit * qtdVendida;
 
-  produtos.push({
-    id: Date.now(),
-    nome, custo, preco, qtdComprada, qtdVendida, lucroUnitario, lucroTotal
-  });
-
-  atualizarTabela();
-  atualizarResumo();
-  salvarLocalStorage();
-  limparInputs();
-}
-
-function atualizarTabela() {
-  const tbody = document.querySelector("#tabela tbody");
-  tbody.innerHTML = "";
-  produtos.forEach(prod => {
-    const tr = document.createElement("tr");
-    const corLucro = prod.lucroTotal >= 0 ? "#4caf50" : "#f44336"; // verde positivo, vermelho negativo
-    tr.innerHTML = `
-      <td>${prod.nome}</td>
-      <td>💰 R$ ${prod.custo.toFixed(2)}</td>
-      <td>💎 R$ ${prod.preco.toFixed(2)}</td>
-      <td>🛍️ ${prod.qtdComprada}</td>
-      <td>✅ ${prod.qtdVendida}</td>
-      <td>📈 R$ ${prod.lucroUnitario.toFixed(2)}</td>
-      <td style="color:${corLucro}">💹 R$ ${prod.lucroTotal.toFixed(2)}</td>
-      <td>
-        <button class="edit" onclick="editarProduto(${prod.id})">✏️</button>
-        <button class="delete" onclick="removerProduto(${prod.id})">❌</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function atualizarResumo() {
-  const valorGasto = produtos.reduce((acc, p) => acc + (p.custo * p.qtdComprada), 0);
-  const vendas = produtos.reduce((acc, p) => acc + (p.preco * p.qtdVendida), 0);
-  const lucroAtual = produtos.reduce((acc, p) => acc + p.lucroTotal, 0);
-  const lucroPrevisto = produtos.reduce((acc, p) => acc + (p.lucroUnitario * p.qtdComprada), 0);
-
-  document.getElementById("valorGasto").textContent = valorGasto.toFixed(2);
-  document.getElementById("vendas").textContent = vendas.toFixed(2);
-  document.getElementById("lucroAtual").textContent = lucroAtual.toFixed(2);
-  document.getElementById("lucroPrevisto").textContent = lucroPrevisto.toFixed(2);
-}
-
-// SALVAR E CARREGAR
-function salvarLocalStorage() {
-  localStorage.setItem("produtos", JSON.stringify(produtos));
-}
-
-function carregarProdutos() {
-  const dados = localStorage.getItem("produtos");
-  if (dados) {
-    produtos = JSON.parse(dados);
+  vendasRef.add({
+    nome,
+    custo,
+    preco,
+    qtdComprada,
+    qtdVendida,
+    lucroUnit,
+    lucroTotal,
+    timestamp: new Date()
+  }).then(() => {
+    limparInputs();
     atualizarTabela();
-    atualizarResumo();
-  }
-}
-
-// REMOVER PRODUTO
-function removerProduto(id) {
-  produtos = produtos.filter(p => p.id !== id);
-  atualizarTabela();
-  atualizarResumo();
-  salvarLocalStorage();
-}
-
-// EDITAR PRODUTO
-function editarProduto(id) {
-  const prod = produtos.find(p => p.id === id);
-  if (!prod) return;
-
-  document.getElementById("nome").value = prod.nome;
-  document.getElementById("custo").value = prod.custo;
-  document.getElementById("preco").value = prod.preco;
-  document.getElementById("qtdComprada").value = prod.qtdComprada;
-  document.getElementById("qtdVendida").value = prod.qtdVendida;
-
-  produtos = produtos.filter(p => p.id !== id);
-  atualizarTabela();
-  atualizarResumo();
-  salvarLocalStorage();
+  }).catch((erro) => {
+    console.error("Erro ao salvar produto:", erro);
+  });
 }
 
 function limparInputs() {
@@ -108,5 +41,54 @@ function limparInputs() {
   document.getElementById("qtdVendida").value = "";
 }
 
-// CARREGAR AO INICIAR
-window.onload = carregarProdutos;
+// Atualizar tabela
+function atualizarTabela() {
+  const tbody = document.querySelector("#tabela tbody");
+  tbody.innerHTML = "";
+
+  let valorGasto = 0;
+  let vendasTotal = 0;
+  let lucroAtual = 0;
+  let lucroPrevisto = 0;
+
+  vendasRef.get().then((snapshot) => {
+    snapshot.forEach((doc) => {
+      const p = doc.data();
+
+      valorGasto += p.custo * p.qtdComprada;
+      vendasTotal += p.preco * p.qtdVendida;
+      lucroAtual += p.lucroTotal;
+      lucroPrevisto += p.lucroUnit * p.qtdComprada;
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${p.nome}</td>
+        <td>R$ ${p.custo.toFixed(2)}</td>
+        <td>R$ ${p.preco.toFixed(2)}</td>
+        <td>${p.qtdComprada}</td>
+        <td>${p.qtdVendida}</td>
+        <td>R$ ${p.lucroUnit.toFixed(2)}</td>
+        <td>R$ ${p.lucroTotal.toFixed(2)}</td>
+        <td><button onclick="removerProduto('${doc.id}')">❌ Remover</button></td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById("valorGasto").textContent = valorGasto.toFixed(2);
+    document.getElementById("vendas").textContent = vendasTotal.toFixed(2);
+    document.getElementById("lucroAtual").textContent = lucroAtual.toFixed(2);
+    document.getElementById("lucroPrevisto").textContent = lucroPrevisto.toFixed(2);
+  });
+}
+
+// Remover produto
+function removerProduto(id) {
+  vendasRef.doc(id).delete().then(() => {
+    atualizarTabela();
+  }).catch((erro) => {
+    console.error("Erro ao remover produto:", erro);
+  });
+}
+
+// Atualizar tabela ao carregar página
+window.onload = atualizarTabela;

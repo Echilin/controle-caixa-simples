@@ -10,45 +10,54 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
 </head>
 <body>
-  <div class="logo">
-    <img src="logo.png" alt="Logo da Loja" id="logoLoja">
-  </div>
+  <div class="container">
 
-  <h1>💖 CONTADOR DE LUCRO (CLARINHO QUE BRILHA) 💖</h1>
+    <!-- LADO ESQUERDO: Logo e Resumo -->
+    <div class="sidebar">
+      <div class="logo">
+        <img src="logo.png" alt="Logo da Loja" id="logoLoja">
+      </div>
+      <div class="resumo">
+        <p>🛒 VALOR GASTO: R$ <span id="valorGasto">0.00</span></p>
+        <p>💵 VENDAS: R$ <span id="vendas">0.00</span></p>
+        <p>💖 LUCRO ATUAL: R$ <span id="lucroAtual">0.00</span></p>
+        <p>🔮 LUCRO PREVISTO: R$ <span id="lucroPrevisto">0.00</span></p>
+      </div>
+    </div>
 
-  <table id="tabela">
-    <thead>
-      <tr>
-        <th>ITEM</th>
-        <th>💰 CUSTO</th>
-        <th>💎 PREÇO</th>
-        <th>🛍️ QTD COMPRADA</th>
-        <th>✅ QTD VENDIDA</th>
-        <th>📈 LUCRO UNIT.</th>
-        <th>💹 LUCRO TOTAL</th>
-        <th>⚙️ AÇÕES</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Produtos aparecem aqui -->
-    </tbody>
-  </table>
+    <!-- LADO DIREITO: Tabela + Inputs -->
+    <div class="main">
+      <h1>💖 CONTADOR DE LUCRO (CLARINHO QUE BRILHA) 💖</h1>
 
-  <div class="resumo">
-    <p>🛒 VALOR GASTO: R$ <span id="valorGasto">0.00</span></p>
-    <p>💵 VENDAS: R$ <span id="vendas">0.00</span></p>
-    <p>💖 LUCRO ATUAL: R$ <span id="lucroAtual">0.00</span></p>
-    <p>🔮 LUCRO PREVISTO: R$ <span id="lucroPrevisto">0.00</span></p>
-  </div>
+      <!-- Cabeçalho estilo Excel -->
+      <div class="tabela-cabecalho">
+        <div class="coluna">ITEM</div>
+        <div class="coluna">💰 CUSTO</div>
+        <div class="coluna">💎 PREÇO</div>
+        <div class="coluna">🛍️ QTD COMPRADA</div>
+        <div class="coluna">✅ QTD VENDIDA</div>
+        <div class="coluna">📈 LUCRO UNIT.</div>
+        <div class="coluna">💹 LUCRO TOTAL</div>
+        <div class="coluna">⚙️ AÇÕES</div>
+      </div>
 
-  <h2>➕ Adicionar Produto</h2>
-  <div class="inputs">
-    <input type="text" id="nome" placeholder="Nome do produto">
-    <input type="number" id="custo" placeholder="Valor de custo">
-    <input type="number" id="preco" placeholder="Preço de venda">
-    <input type="number" id="qtdComprada" placeholder="Qtd comprada">
-    <input type="number" id="qtdVendida" placeholder="Qtd vendida">
-    <button onclick="adicionarProduto()">💾 Adicionar Produto</button>
+      <!-- Tabela de dados -->
+      <table id="tabela">
+        <tbody>
+          <!-- Produtos aparecem aqui via Firebase -->
+        </tbody>
+      </table>
+
+      <h2>➕ Adicionar Produto</h2>
+      <div class="inputs">
+        <input type="text" id="nome" placeholder="Nome do produto">
+        <input type="number" id="custo" placeholder="Valor de custo">
+        <input type="number" id="preco" placeholder="Preço de venda">
+        <input type="number" id="qtdComprada" placeholder="Qtd comprada">
+        <input type="number" id="qtdVendida" placeholder="Qtd vendida">
+        <button onclick="adicionarProduto()">💾 Adicionar Produto</button>
+      </div>
+    </div>
   </div>
 
   <!-- Configuração Firebase -->
@@ -62,7 +71,6 @@
       appId: "1:564577808202:web:643353f1a2494692fe1bb3"
     };
 
-    // Inicializa Firebase
     const app = firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
   </script>

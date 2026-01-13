@@ -1,25 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Contador de Lucro</title>
+  <meta charset="UTF-8">
+  <title>💖 Contador de Lucro – Clarinho que Brilha 💖</title>
 
-  <!-- Firebase V8 (CORRETO para HTML simples) -->
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Firebase V8 (NÃO modular) -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-  <!-- Seu CSS -->
-  <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <div class="container">
 
-  <!-- SEU HTML ROSA CONTINUA IGUAL -->
-  <!-- botão precisa ter onclick -->
-  <button onclick="adicionarProduto()">💾 Adicionar Produto</button>
+    <!-- LADO ESQUERDO -->
+    <div class="sidebar">
+      <div class="logo">
+        <img src="logo.png" alt="Logo" />
+      </div>
 
-  <!-- Script FINAL -->
-  <script src="script.js"></script>
+      <div class="resumo">
+        <p>🛒 VALOR GASTO: R$ <span id="valorGasto">0.00</span></p>
+        <p>💵 VENDAS: R$ <span id="vendas">0.00</span></p>
+        <p>💖 LUCRO ATUAL: R$ <span id="lucroAtual">0.00</span></p>
+        <p>🔮 LUCRO PREVISTO: R$ <span id="lucroPrevisto">0.00</span></p>
+      </div>
+    </div>
 
-</body>
-</html>
+    <!-- LADO DIREITO -->
+    <div class="main">
+      <h1>💖 CONTADOR DE LUCRO (CLARINHO QUE BRILHA) 💖</h1>
+
+      <!-- Cabeçalho -->
+      <div class="tabela-cabecalho">
+        <div>ITEM</div>
+        <div>💰 CUSTO</div>
+        <div>💎 PREÇO</div>
+        <div>📦 QTD COMPRADA</div>
+        <div>✅ QTD VENDIDA</div>
+        <div>📈 LUCRO UNIT.</div>
+        <div>💹 LUCRO TOTAL</div>
+        <div>⚙️ AÇÕES</div>
+      </div>
+
+      <!-- Tabela -->
+      <table id="tabela">
+        <tbody></tbody>
+      </table>
+
+      <h2>➕ Adicionar Produto</h2>
+      <div class="inputs">
+        <input id="nome" placeholder="Produto">
+        <input id="custo" type="number" placeholder="Custo">
+        <input id="preco" type="

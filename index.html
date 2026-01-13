@@ -2,18 +2,50 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Controle de Caixa</title>
+  <title>💎 Contador de Lucro - Clarinho que Brilha 💎</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="logo">
+  <img src="logo.png" alt="Logo da Loja" id="logoLoja">
+</div>
 
-  <h1>Controle de Caixa</h1>
+  <h1>💖 CONTADOR DE LUCRO (CLARINHO QUE BRILHA) 💖</h1>
 
-  <input type="text" id="descricao" placeholder="Descrição">
-  <input type="number" id="valor" placeholder="Valor">
-  <button onclick="adicionar()">Adicionar</button>
+  <table id="tabela">
+    <thead>
+      <tr>
+        <th>ITEM</th>
+        <th>💰 CUSTO</th>
+        <th>💎 PREÇO</th>
+        <th>🛍️ QTD COMPRADA</th>
+        <th>✅ QTD VENDIDA</th>
+        <th>📈 LUCRO UNIT.</th>
+        <th>💹 LUCRO TOTAL</th>
+        <th>⚙️ AÇÕES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Produtos aparecem aqui -->
+    </tbody>
+  </table>
 
-  <ul id="lista"></ul>
+  <div class="resumo">
+    <p>🛒 VALOR GASTO: R$ <span id="valorGasto">0.00</span></p>
+    <p>💵 VENDAS: R$ <span id="vendas">0.00</span></p>
+    <p>💖 LUCRO ATUAL: R$ <span id="lucroAtual">0.00</span></p>
+    <p>🔮 LUCRO PREVISTO: R$ <span id="lucroPrevisto">0.00</span></p>
+  </div>
+
+  <h2>➕ Adicionar Produto</h2>
+  <div class="inputs">
+    <input type="text" id="nome" placeholder="Nome do produto">
+    <input type="number" id="custo" placeholder="Valor de custo">
+    <input type="number" id="preco" placeholder="Preço de venda">
+    <input type="number" id="qtdComprada" placeholder="Qtd comprada">
+    <input type="number" id="qtdVendida" placeholder="Qtd vendida">
+    <button onclick="adicionarProduto()">💾 Adicionar Produto</button>
+  </div>
 
   <script src="script.js"></script>
 </body>

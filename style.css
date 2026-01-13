@@ -1,9 +1,9 @@
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
+  background-color: #ffe6f0; /* rosa clarinho */
   text-align: center;
 }
-
 .logo img {
   width: 120px;
   height: 120px;
@@ -18,9 +18,8 @@ table {
   margin-bottom: 20px;
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 8px;
+th {
+  background-color: #ffb6c1; /* cabeçalho rosa */
 }
 
 th {

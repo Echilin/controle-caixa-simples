@@ -1,10 +1,9 @@
-// Todas as funções dentro do onload para garantir que db esteja pronto
+// Tudo dentro do onload para garantir que o Firebase já está carregado
 window.onload = function() {
-
-  // db já foi definido globalmente no index.html
+  // db já foi definido no index.html
   const vendasRef = db.collection("vendas");
 
-  // Adicionar produto
+  // Função para adicionar produto
   function adicionarProduto() {
     const nome = document.getElementById("nome").value;
     const custo = parseFloat(document.getElementById("custo").value);
@@ -20,6 +19,7 @@ window.onload = function() {
     const lucroUnit = preco - custo;
     const lucroTotal = lucroUnit * qtdVendida;
 
+    // Salva no Firebase
     vendasRef.add({
       nome,
       custo,
@@ -37,7 +37,7 @@ window.onload = function() {
     });
   }
 
-  // Limpar inputs após adicionar
+  // Limpar inputs
   function limparInputs() {
     document.getElementById("nome").value = "";
     document.getElementById("custo").value = "";
@@ -97,10 +97,10 @@ window.onload = function() {
     });
   }
 
-  // Exponha funções globais para os botões
+  // Expõe as funções globalmente para os botões
   window.adicionarProduto = adicionarProduto;
   window.removerProduto = removerProduto;
 
-  // Atualiza tabela ao carregar página
+  // Atualiza tabela ao carregar a página
   atualizarTabela();
 };

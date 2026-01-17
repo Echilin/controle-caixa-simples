@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <title>💖 Contador de Lucro – Clarinho que Brilha 💖</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- CSS (forçado para funcionar no Vercel) -->
+  <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
     <!-- LADO ESQUERDO -->
     <div class="sidebar">
       <div class="logo">
-        <img src="logo.png" alt="Logo" id="logoLoja" />
+        <img src="logo.png" alt="Logo" id="logoLoja">
       </div>
 
       <div class="resumo">
@@ -29,7 +29,6 @@
     <div class="main">
       <h1>💖 CONTADOR DE LUCRO (CLARINHO QUE BRILHA) 💖</h1>
 
-      <!-- Cabeçalho estilo Excel (usa seu CSS atual) -->
       <div class="tabela-cabecalho">
         <div class="coluna">ITEM</div>
         <div class="coluna">💰 CUSTO</div>
@@ -41,24 +40,22 @@
         <div class="coluna">⚙️ AÇÕES</div>
       </div>
 
-      <!-- Tabela -->
       <table id="tabela">
         <tbody></tbody>
       </table>
 
       <h2>➕ Adicionar Produto</h2>
       <div class="inputs">
-        <input type="text" id="nome" placeholder="Produto" />
-        <input type="number" id="custo" placeholder="Custo" />
-        <input type="number" id="preco" placeholder="Preço" />
-        <input type="number" id="qtdComprada" placeholder="Qtd comprada" />
-        <input type="number" id="qtdVendida" placeholder="Qtd vendida" />
+        <input type="text" id="nome" placeholder="Produto">
+        <input type="number" id="custo" placeholder="Custo">
+        <input type="number" id="preco" placeholder="Preço">
+        <input type="number" id="qtdComprada" placeholder="Qtd comprada">
+        <input type="number" id="qtdVendida" placeholder="Qtd vendida">
         <button onclick="adicionarProduto()">💾 Adicionar Produto</button>
       </div>
     </div>
   </div>
 
-  <!-- Seu JS (localStorage) -->
-  <script src="script.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>

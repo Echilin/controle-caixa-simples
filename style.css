@@ -1,14 +1,95 @@
-.inputs{
+/* ===== FIX TOTAL DE DESFORMATAÇÃO ===== */
+
+body{
+  background: #fff0f5;
+}
+
+.container{
   display: flex;
-  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.sidebar{
+  width: 300px;
+  background: #ffe3ee;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 0 12px rgba(0,0,0,0.08);
+}
+
+.logo{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.logo img{
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  transition: transform .3s ease;
+}
+
+.logo img:hover{
+  transform: scale(1.07) rotate(-2deg);
+}
+
+.main{
+  flex: 1;
+}
+
+.tabela-cabecalho{
+  display: grid;
+  grid-template-columns: 2.2fr 1fr 1fr 1.2fr 1.2fr 1.2fr 1.2fr 0.8fr;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.tabela-cabecalho .coluna{
+  background-color: #ffb6c1;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#tabela{
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.06);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+#tabela td{
+  border: 1px solid #f0d6df;
+  padding: 10px;
+  text-align: center;
+  background: #fffaf0;
+}
+
+.inputs{
+  display: grid;
+  grid-template-columns: 220px 140px 140px 140px 140px auto;
   gap: 10px;
   align-items: center;
 }
 
 .inputs input{
-  width: 180px; /* mais confortável */
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #e7c3cf;
 }
 
 .inputs button{
-  height: 40px;
+  padding: 10px 14px;
+  background: #ff69b4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }

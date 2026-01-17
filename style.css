@@ -1,131 +1,14 @@
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  background: #fff0f5;
-  color: #333;
-}
-
-.container {
+.inputs{
   display: flex;
-  gap: 20px;
-  padding: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
 }
 
-/* ---------------- LADO ESQUERDO ---------------- */
-.sidebar {
-  width: 250px;
-  background-color: #ffe6f0;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
-  text-align: center;
+.inputs input{
+  width: 180px; /* mais confortável */
 }
 
-.logo img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  transition: transform 0.3s;
-  margin-bottom: 15px;
-}
-
-.logo img:hover {
-  transform: rotate(15deg) scale(1.1);
-}
-
-.resumo p {
-  font-size: 16px;
-  margin: 8px 0;
-  font-weight: bold;
-}
-
-/* ---------------- LADO DIREITO ---------------- */
-.main {
-  flex: 1;
-}
-
-h1 {
-  color: #e91e63;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-/* ---------------- Cabeçalho estilo Excel ---------------- */
-.tabela-cabecalho {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  overflow: hidden;
-}
-
-.tabela-cabecalho .coluna {
-  flex: 1;
-  background-color: #ffb6c1;
-  color: #333;
-  font-weight: bold;
-  text-align: center;
-  padding: 10px 5px;
-  border-right: 1px solid #fff;
-}
-
-.tabela-cabecalho .coluna:last-child {
-  border-right: none;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 15px;
-}
-
-td {
-  text-align: center;
-  padding: 8px;
-  border: 1px solid #ddd;
-  background-color: #fffaf0;
-}
-
-/* ---------------- Botões ---------------- */
-td button {
-  cursor: pointer;
-  padding: 5px 8px;
-  margin: 2px;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-td button:hover {
-  opacity: 0.8;
-}
-
-td button.edit {
-  background-color: #4caf50;
-  color: white;
-}
-
-td button.delete {
-  background-color: #f44336;
-  color: white;
-}
-
-/* ---------------- Inputs ---------------- */
-.inputs input {
-  padding: 8px;
-  margin: 5px;
-  width: 140px;
-}
-
-.inputs button {
-  padding: 8px 12px;
-  background-color: #ff69b4;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.inputs button:hover {
-  opacity: 0.9;
+.inputs button{
+  height: 40px;
 }

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>💖 Contador de Lucro – Clarinho que Brilha 💖</title>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 
   <!-- Firebase V8 (NÃO modular) -->
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -18,7 +18,7 @@
     <!-- LADO ESQUERDO -->
     <div class="sidebar">
       <div class="logo">
-        <img src="logo.png" alt="Logo" />
+        <img src="logo.png" alt="Logo" id="logoLoja" />
       </div>
 
       <div class="resumo">
@@ -33,16 +33,16 @@
     <div class="main">
       <h1>💖 CONTADOR DE LUCRO (CLARINHO QUE BRILHA) 💖</h1>
 
-      <!-- Cabeçalho -->
+      <!-- Cabeçalho estilo Excel (usa seu CSS atual) -->
       <div class="tabela-cabecalho">
-        <div>ITEM</div>
-        <div>💰 CUSTO</div>
-        <div>💎 PREÇO</div>
-        <div>📦 QTD COMPRADA</div>
-        <div>✅ QTD VENDIDA</div>
-        <div>📈 LUCRO UNIT.</div>
-        <div>💹 LUCRO TOTAL</div>
-        <div>⚙️ AÇÕES</div>
+        <div class="coluna">ITEM</div>
+        <div class="coluna">💰 CUSTO</div>
+        <div class="coluna">💎 PREÇO</div>
+        <div class="coluna">📦 QTD COMPRADA</div>
+        <div class="coluna">✅ QTD VENDIDA</div>
+        <div class="coluna">📈 LUCRO UNIT.</div>
+        <div class="coluna">💹 LUCRO TOTAL</div>
+        <div class="coluna">⚙️ AÇÕES</div>
       </div>
 
       <!-- Tabela -->
@@ -52,6 +52,32 @@
 
       <h2>➕ Adicionar Produto</h2>
       <div class="inputs">
-        <input id="nome" placeholder="Produto">
-        <input id="custo" type="number" placeholder="Custo">
-        <input id="preco" type="
+        <input type="text" id="nome" placeholder="Produto" />
+        <input type="number" id="custo" placeholder="Custo" />
+        <input type="number" id="preco" placeholder="Preço" />
+        <input type="number" id="qtdComprada" placeholder="Qtd comprada" />
+        <input type="number" id="qtdVendida" placeholder="Qtd vendida" />
+        <button onclick="adicionarProduto()">💾 Adicionar Produto</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase config (db global) -->
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyBJ4sECAUppGXWX-zeLj1fwiparbCjNQIY",
+      authDomain: "contador-de-lucro.firebaseapp.com",
+      projectId: "contador-de-lucro",
+      storageBucket: "contador-de-lucro.appspot.com",
+      messagingSenderId: "564577808202",
+      appId: "1:564577808202:web:643353f1a2494692fe1bb3"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    var db = firebase.firestore();
+  </script>
+
+  <!-- Seu JS -->
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,6 +1,16 @@
-const vendasRef = db.collection("vendas");
+// CHAVE DO LOCALSTORAGE
+const STORAGE_KEY = "clarinho_caixa_v1";
 
-// Adicionar produto
+// ===== FUNÇÕES DE STORAGE =====
+function carregarProdutos() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+}
+
+function salvarProdutos(lista) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(lista));
+}
+
+// ===== ADICIONAR =====
 function adicionarProduto() {
   const nome = document.getElementById("nome").value.trim();
   const custo = Number(document.getElementById("custo").value);
@@ -8,31 +18,35 @@ function adicionarProduto() {
   const qtdComprada = Number(document.getElementById("qtdComprada").value);
   const qtdVendida = Number(document.getElementById("qtdVendida").value);
 
-  if (!nome || !Number.isFinite(custo) || !Number.isFinite(preco) || !Number.isFinite(qtdComprada) || !Number.isFinite(qtdVendida)) {
+  if (!nome || isNaN(custo) || isNaN(preco) || isNaN(qtdComprada) || isNaN(qtdVendida)) {
     alert("Preencha todos os campos corretamente!");
     return;
   }
 
-  const lucroUnit = preco - custo;
-  const lucroTotal = lucroUnit * qtdVendida;
+  const produtos = carregarProdutos();
 
-  vendasRef.add({
+  produtos.push({
+    id: Date.now(),
     nome,
     custo,
     preco,
     qtdComprada,
-    qtdVendida,
-    lucroUnit,
-    lucroTotal,
-    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-  }).then(() => {
-    limparInputs();
-  }).catch((erro) => {
-    console.error("Erro ao salvar:", erro);
-    alert("Não consegui salvar. Olha o Console (F12) pra ver o erro.");
+    qtdVendida
   });
+
+  salvarProdutos(produtos);
+  limparInputs();
+  atualizarTabela();
 }
 
+// ===== REMOVER =====
+function removerProduto(id) {
+  const produtos = carregarProdutos().filter(p => p.id !== id);
+  salvarProdutos(produtos);
+  atualizarTabela();
+}
+
+// ===== LIMPAR INPUTS =====
 function limparInputs() {
   document.getElementById("nome").value = "";
   document.getElementById("custo").value = "";
@@ -41,71 +55,51 @@ function limparInputs() {
   document.getElementById("qtdVendida").value = "";
 }
 
-// Monta linha da tabela
-function renderLinha(doc) {
-  const p = doc.data();
-  const tr = document.createElement("tr");
+// ===== ATUALIZAR TABELA + RESUMO =====
+function atualizarTabela() {
+  const produtos = carregarProdutos();
+  const tbody = document.querySelector("#tabela tbody");
+  tbody.innerHTML = "";
 
-  tr.innerHTML = `
-    <td>${p.nome ?? ""}</td>
-    <td>R$ ${(p.custo ?? 0).toFixed(2)}</td>
-    <td>R$ ${(p.preco ?? 0).toFixed(2)}</td>
-    <td>${p.qtdComprada ?? 0}</td>
-    <td>${p.qtdVendida ?? 0}</td>
-    <td>R$ ${(p.lucroUnit ?? 0).toFixed(2)}</td>
-    <td>R$ ${(p.lucroTotal ?? 0).toFixed(2)}</td>
-    <td><button class="delete" onclick="removerProduto('${doc.id}')">❌</button></td>
-  `;
-
-  return tr;
-}
-
-// Recalcula resumo baseado no snapshot inteiro
-function atualizarResumo(docs) {
   let valorGasto = 0;
-  let vendasTotal = 0;
+  let vendas = 0;
   let lucroAtual = 0;
   let lucroPrevisto = 0;
 
-  docs.forEach((doc) => {
-    const p = doc.data();
-    const custo = Number(p.custo) || 0;
-    const preco = Number(p.preco) || 0;
-    const qtdComprada = Number(p.qtdComprada) || 0;
-    const qtdVendida = Number(p.qtdVendida) || 0;
+  produtos.forEach(p => {
+    const lucroUnit = p.preco - p.custo;
+    const lucroTotal = lucroUnit * p.qtdVendida;
 
-    const lucroUnit = (Number(p.lucroUnit) || (preco - custo));
-    const lucroTotal = (Number(p.lucroTotal) || (lucroUnit * qtdVendida));
-
-    valorGasto += custo * qtdComprada;
-    vendasTotal += preco * qtdVendida;
+    valorGasto += p.custo * p.qtdComprada;
+    vendas += p.preco * p.qtdVendida;
     lucroAtual += lucroTotal;
-    lucroPrevisto += lucroUnit * qtdComprada;
+    lucroPrevisto += lucroUnit * p.qtdComprada;
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${p.nome}</td>
+      <td>R$ ${p.custo.toFixed(2)}</td>
+      <td>R$ ${p.preco.toFixed(2)}</td>
+      <td>${p.qtdComprada}</td>
+      <td>${p.qtdVendida}</td>
+      <td>R$ ${lucroUnit.toFixed(2)}</td>
+      <td>R$ ${lucroTotal.toFixed(2)}</td>
+      <td>
+        <button class="delete" onclick="removerProduto(${p.id})">❌</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
   });
 
   document.getElementById("valorGasto").textContent = valorGasto.toFixed(2);
-  document.getElementById("vendas").textContent = vendasTotal.toFixed(2);
+  document.getElementById("vendas").textContent = vendas.toFixed(2);
   document.getElementById("lucroAtual").textContent = lucroAtual.toFixed(2);
   document.getElementById("lucroPrevisto").textContent = lucroPrevisto.toFixed(2);
 }
 
-// Remover
-function removerProduto(id) {
-  vendasRef.doc(id).delete().catch((erro) => {
-    console.error("Erro ao remover:", erro);
-  });
-}
+// ===== CARREGAR AO ABRIR =====
+window.onload = atualizarTabela;
 
-// 🔥 Atualização em tempo real (perfeito)
-vendasRef.orderBy("createdAt", "asc").onSnapshot((snapshot) => {
-  const tbody = document.querySelector("#tabela tbody");
-  tbody.innerHTML = "";
-
-  const docs = [];
-  snapshot.forEach((doc) => {
-    docs.push(doc);
-    tbody.appendChild(renderLinha(doc));
-  });
-
-  atualizarResumo(docs);
-});
+// ===== DEIXA GLOBAL (BOTÃO FUNCIONA) =====
+window.adicionarProduto = adicionarProduto;
+window.removerProduto = removerProduto;

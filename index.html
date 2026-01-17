@@ -6,10 +6,6 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Firebase V8 (NÃO modular) -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 
 <body>
@@ -62,22 +58,7 @@
     </div>
   </div>
 
-  <!-- Firebase config (db global) -->
-  <script>
-    var firebaseConfig = {
-      apiKey: "AIzaSyBJ4sECAUppGXWX-zeLj1fwiparbCjNQIY",
-      authDomain: "contador-de-lucro.firebaseapp.com",
-      projectId: "contador-de-lucro",
-      storageBucket: "contador-de-lucro.appspot.com",
-      messagingSenderId: "564577808202",
-      appId: "1:564577808202:web:643353f1a2494692fe1bb3"
-    };
-
-    firebase.initializeApp(firebaseConfig);
-    var db = firebase.firestore();
-  </script>
-
-  <!-- Seu JS -->
+  <!-- Seu JS (localStorage) -->
   <script src="script.js"></script>
 </body>
 </html>
